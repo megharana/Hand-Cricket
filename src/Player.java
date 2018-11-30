@@ -20,7 +20,7 @@ public class Player {
 		int[] runs = {0, 1, 2, 3, 4, 6};      	//runs Array to provide runs excluding "5"
 		Random rand = new Random(); 
 		int randRun = rand.nextInt(6);
-		return randRun;
+		return runs[randRun];
 	}
 	
 	public static void match(int rounds, Player currentPlayer, Player nextPlayer) {
@@ -83,19 +83,28 @@ public class Player {
 		
 		Player A = new Player('A');
 		Player B = new Player('B');
+		try {
+			Scanner scanPlayer = new Scanner(System.in);
+			System.out.println("Enter the Player who won the toss between A and B\t");
+			char playerFirst = scanPlayer.next().charAt(0);
 		
-		Scanner scanPlayer = new Scanner(System.in);
-		System.out.println("Enter the Player who won the toss between A and B\t");
-		char playerFirst = scanPlayer.next().charAt(0);
-		
-		if(playerFirst == 'A') 
-			match(rounds, A, B);
-		else if(playerFirst == 'B') 
-			match(rounds, B, A);
-			
-		scanPlayer.close();
-		scanRound.close();
-		
+			if(playerFirst == 'A'|| playerFirst == 'B') {
+				if(playerFirst == 'A') 
+					match(rounds, A, B);
+				else if(playerFirst == 'B') 
+					match(rounds, B, A);
+			}
+			else
+				throw new RuntimeException("Invalid input only char A and B expected");
+        
+				
+			scanPlayer.close();
+			scanRound.close();
+		}	
+		catch(RuntimeException re){
+	        System.out.print(re.getMessage());
+            //System.out.println();
+		}
 		
 	}
 
